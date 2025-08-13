@@ -19,8 +19,8 @@ const LeaveHoursTable = async ({ searchParams }) => {
     queryFilter.date = { ...queryFilter.date, $lte: new Date(endDate) };
   }
   
-  // Calculate 30 seconds ago for auto-hide functionality (TESTING)
-  const thirtySecondsAgo = new Date(Date.now() - 30 * 1000);
+  // Calculate 24 hours ago for auto-hide functionality
+  const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
   
   // Fetch leave hours records, excluding drafts, soft-deleted records, and approved records older than 24 hours
   const leaveHoursRecords = await LeaveHours.find({
@@ -31,7 +31,7 @@ const LeaveHoursTable = async ({ searchParams }) => {
       { status: { $ne: 'approved' } }, // Show all non-approved records
       { 
         status: 'approved',
-        updatedAt: { $gte: thirtySecondsAgo } // Show approved records only if updated within 30 seconds (TESTING)
+        updatedAt: { $gte: twentyFourHoursAgo } // Show approved records only if updated within 24 hours
       }
     ]
   }).sort({ date: -1 }).lean();

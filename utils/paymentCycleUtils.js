@@ -22,8 +22,8 @@ export const getPaymentCycleInfo = (currentDate = new Date()) => {
   previousCycleStart.setDate(previousCycleStart.getDate() - 28);
   const previousCycle = getFourWeekCycle(previousCycleStart);
   
-  // Determine if we're in the grace period (Monday to Saturday after cycle end)
-  const isInGracePeriod = isWithinGracePeriod(current, cycleEnd);
+  // Determine if we're in the grace period (Monday to Saturday after previous cycle end)
+  const isInGracePeriod = isWithinGracePeriod(current, previousCycle[3].end);
   
   return {
     currentCycle: {

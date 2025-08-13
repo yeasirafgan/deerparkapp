@@ -53,27 +53,14 @@ const TrainingForm = ({ onSubmit, username }) => {
         return;
       }
 
-      // Validate and convert duration from HH:MM format
-      const timePattern = /^([0-9]{1,2}):([0-5][0-9])$/;
-      const timeMatch = formData.duration.match(timePattern);
+      // Validate duration as decimal number
+      const duration = parseFloat(formData.duration);
       
-      if (!timeMatch) {
-        setError('Duration must be in HH:MM format (e.g., 2:30).');
+      if (isNaN(duration) || duration < 0.5 || duration > 24) {
+        setError('Duration must be between 0.5 and 24 hours.');
         setIsSubmitting(false);
         return;
       }
-      
-      const hours = parseInt(timeMatch[1]);
-      const minutes = parseInt(timeMatch[2]);
-      
-      if (hours < 0 || hours > 24 || (hours === 24 && minutes > 0)) {
-        setError('Duration cannot exceed 24 hours.');
-        setIsSubmitting(false);
-        return;
-      }
-      
-      // Convert to decimal hours for storage
-      const duration = hours + (minutes / 60);
 
       const submitData = {
         trainingType: formData.trainingType,
@@ -212,20 +199,22 @@ const TrainingForm = ({ onSubmit, username }) => {
 
         <div className='flex flex-col flex-1 mt-4 sm:mt-0'>
           <label className='text-sm font-medium text-gray-700' htmlFor='duration'>
-            Duration (Hours:Minutes) *
+            Duration (Hours) *
           </label>
           <input
-            type='text'
+            type='number'
             name='duration'
             id='duration'
             value={formData.duration}
             onChange={handleChange}
-            pattern='[0-9]{1,2}:[0-5][0-9]'
+            min='0.5'
+            max='24'
+            step='0.5'
             className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-700 sm:text-sm'
-            placeholder='e.g., 2:30'
+            placeholder='e.g., 2.5'
             required
           />
-          <p className='text-xs text-gray-500 mt-1'>Format: HH:MM (e.g., 2:30 for 2 hours 30 minutes)</p>
+          <p className='text-xs text-gray-500 mt-1'>Enter hours as decimal (e.g., 2.5 for 2 hours 30 minutes)</p>
         </div>
       </div>
 

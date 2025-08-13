@@ -24,9 +24,18 @@ export async function GET(request) {
     const startDate = searchParams.get('startDate');
     const endDate = searchParams.get('endDate');
     const leaveType = searchParams.get('leaveType');
+    const username = searchParams.get('username');
 
     // Build query
-    let query = { userId: user.id };
+    let query = {};
+    
+    // If username is provided, filter by userName field (for admin queries)
+    // Otherwise, filter by userId (for user's own data)
+    if (username) {
+      query.userName = username;
+    } else {
+      query.userId = user.id;
+    }
     
     if (!includeDrafts) {
       query.isDraft = false;
@@ -47,14 +56,14 @@ export async function GET(request) {
       };
     }
 
-    // For user timesheet display, hide approved records older than 30 seconds (TESTING)
-    const thirtySecondsAgo = new Date(Date.now() - 30 * 1000);
+    // For user timesheet display, hide approved records older than 24 hours
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
     if (includeDrafts) {
       query.$or = [
         { status: { $ne: 'approved' } }, // Show all non-approved records
         { 
           status: 'approved',
-          updatedAt: { $gte: thirtySecondsAgo } // Show approved records only if updated within 30 seconds (TESTING)
+          updatedAt: { $gte: twentyFourHoursAgo } // Show approved records only if updated within 24 hours
         }
       ];
     }

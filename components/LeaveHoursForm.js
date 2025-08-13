@@ -48,23 +48,12 @@ const LeaveHoursForm = ({ onSubmit, username }) => {
         throw new Error('Please fill in all required fields');
       }
 
-      // Validate and convert hours from HH:MM format
-      const timePattern = /^([0-9]{1,2}):([0-5][0-9])$/;
-      const timeMatch = formData.hours.match(timePattern);
+      // Validate hours as decimal number
+      const hours = parseFloat(formData.hours);
       
-      if (!timeMatch) {
-        throw new Error('Hours must be in HH:MM format (e.g., 8:00)');
+      if (isNaN(hours) || hours < 0.5 || hours > 24) {
+        throw new Error('Hours must be between 0.5 and 24');
       }
-      
-      const hoursNum = parseInt(timeMatch[1]);
-      const minutes = parseInt(timeMatch[2]);
-      
-      if (hoursNum < 0 || hoursNum > 24 || (hoursNum === 24 && minutes > 0)) {
-        throw new Error('Hours cannot exceed 24:00');
-      }
-      
-      // Convert to decimal hours for storage
-      const hours = hoursNum + (minutes / 60);
 
       const submitData = {
         ...formData,
@@ -117,8 +106,6 @@ const LeaveHoursForm = ({ onSubmit, username }) => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Submit Leave Hours</h2>
-
       {error && (
         <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
           <p className="text-red-600 text-sm">{error}</p>
@@ -171,20 +158,22 @@ const LeaveHoursForm = ({ onSubmit, username }) => {
         {/* Hours */}
         <div>
           <label htmlFor="hours" className="block text-sm font-medium text-gray-700 mb-2">
-            Hours (Hours:Minutes) *
+            Hours *
           </label>
           <input
-            type="text"
+            type="number"
             id="hours"
             name="hours"
             value={formData.hours}
             onChange={handleChange}
-            pattern="[0-9]{1,2}:[0-5][0-9]"
-            placeholder="e.g., 8:00"
+            min="0.5"
+            max="24"
+            step="0.5"
+            placeholder="e.g., 8 or 4.5"
             required
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
-          <p className="text-xs text-gray-500 mt-1">Format: HH:MM (e.g., 8:00 for 8 hours)</p>
+          <p className="text-xs text-gray-500 mt-1">Enter hours as decimal (e.g., 4.5 for 4 hours 30 minutes)</p>
         </div>
 
         {/* Reason */}
@@ -204,19 +193,27 @@ const LeaveHoursForm = ({ onSubmit, username }) => {
         </div>
 
         {/* Submit Buttons */}
-        <div className="flex space-x-4">
+        <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-2 sm:space-y-0">
           <button
             type="button"
             onClick={(e) => handleSubmit(e, true)}
             disabled={isSubmitting}
-            className="flex-1 bg-gray-600 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition duration-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 ${
+              isSubmitting
+                ? 'bg-gray-400 cursor-not-allowed text-white'
+                : 'bg-gray-600 hover:bg-gray-700 text-white'
+            }`}
           >
             {isSubmitting ? 'Saving...' : 'Save as Draft'}
           </button>
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className={`flex-1 py-3 px-4 rounded-lg font-medium text-white transition duration-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 ${
+              isSubmitting
+                ? 'bg-gray-400 cursor-not-allowed'
+                : 'bg-slate-700 hover:bg-slate-800'
+            }`}
           >
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>

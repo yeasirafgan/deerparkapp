@@ -219,8 +219,10 @@ const AdminPage = async ({ searchParams }) => {
   const timestamp = Date.now(); // Add this line to force revalidation
 
   // Calculate the payment for each user
-  const calculatePayment = (totalHours) => {
-    return totalHours * nationalMinimumWage;
+  const calculatePayment = (totalHours, totalMinutes) => {
+    // Convert hours and minutes to decimal hours for accurate payment calculation
+    const decimalHours = totalHours + (totalMinutes / 60);
+    return decimalHours * nationalMinimumWage;
   };
 
   revalidatePath('/admin');
@@ -322,7 +324,7 @@ const AdminPage = async ({ searchParams }) => {
                   </td>
                   {/* New Column for Estimated Payment */}
                   <td className='border border-gray-300 px-2 py-1 text-center text-xs sm:text-sm font-bold text-slate-700 hover:text-emerald-900'>
-                    £{calculatePayment(user.totalHours).toFixed(2)}
+                    £{calculatePayment(user.totalHours, user.totalMinutes).toFixed(2)}
                   </td>
                 </tr>
               ))}
@@ -408,7 +410,7 @@ const AdminPage = async ({ searchParams }) => {
                       {formatTime(user.totalHours, user.totalMinutes)}
                     </td>
                     <td className='border border-gray-300 px-2 py-1 text-center text-xs sm:text-sm font-bold text-slate-700 hover:text-emerald-900'>
-                      £{calculatePayment(user.totalHours).toFixed(2)}
+                      £{calculatePayment(user.totalHours, user.totalMinutes).toFixed(2)}
                     </td>
                   </tr>
                 ))}

@@ -7,6 +7,8 @@ import UserTimesheetData from '@/components/UserTimesheetData';
 import TabbedInterface from '@/components/TabbedInterface';
 import RotaList from '@/components/RotaList';
 import VapiAssistantDynamic from '@/components/VapiAssistantDynamic';
+import GracePeriodNotice from '@/components/GracePeriodNotice';
+import TotalCompensatedHours from '@/components/TotalCompensatedHours';
 
 export const metadata = {
   title: 'Phoenix carehome | Timesheet',
@@ -31,8 +33,8 @@ const TimesheetPage = async ({ searchParams }) => {
 
   return (
     <main className='bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8'>
-      <VapiAssistantDynamic/>
-      <div className='container mx-auto'>
+      {/* <VapiAssistantDynamic/> */}
+      <div className='w-full max-w-none px-4 sm:px-6 lg:px-8'>
         {/* Hero Section with Username */}
         <div className='flex-1 bg-gradient-to-r from-slate-200 to-slate-100 shadow-md rounded-lg p-6 mb-8 h-[60vh] md:h-auto flex flex-col justify-center items-start'>
           {/* Welcome and Username */}
@@ -48,15 +50,12 @@ const TimesheetPage = async ({ searchParams }) => {
           {/* Submit timesheets and other info */}
           <div className='w-full flex flex-col items-start mt-4 md:w-auto md:items-start md:mt-auto'>
             <h2 className='text-md font-semibold text-lime-900 text-left md:text-left hover:text-yellow-600'>
-              Submit your work hours, leave requests, and training records here.
+              Submit your timesheets here.
             </h2>
             <p className='text-sm font-semibold text-lime-900 text-left mt-1 md:text-left hover:text-yellow-600'>
-              Manage your entries and view rotas...
-            </p>
-            <p className='text-sm font-semibold text-lime-900 text-left mt-1 md:text-left hover:text-yellow-600'>
-              HI,I am Grace,your virtual assistant...<br/>
-              You can ask me about your upcoming shifts...<br/>
-              or any other information about your shifts...
+              {' '}
+              {/* Changed mt-2 to mt-1 */}
+              Manage your timesheets and view rotas...
             </p>
           </div>
         </div>
@@ -76,9 +75,9 @@ const TimesheetPage = async ({ searchParams }) => {
             <h1 className='text-2xl font-semibold text-slate-800 mb-4'>
               Your Timesheet Data
             </h1>
-            <UserTimesheetData 
-              username={username} 
-            />
+            <GracePeriodNotice username={username} />
+            <UserTimesheetData username={username} />
+             <TotalCompensatedHours username={username} />
           </div>
         </div>
 

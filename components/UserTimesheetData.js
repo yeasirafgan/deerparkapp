@@ -9,6 +9,7 @@ import { getDisplayCycleData } from '@/utils/paymentCycleUtils';
 import { calculateMinutesWorked, convertMinutesToHours } from '@/utils/dateUtils';
 import DraftManager from './DraftManager';
 
+
 const UserTimesheetData = ({ username }) => {
   // Use refs for cleanup tracking
   const intervalRef = useRef(null);
@@ -546,7 +547,7 @@ const UserTimesheetData = ({ username }) => {
            <button
              onClick={refreshData}
              disabled={isLoading}
-             className='px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed'
+             className='px-3 py-1 text-sm bg-slate-700 text-white rounded hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed'
              title='Refresh pending requests'
            >
              {isLoading ? '⟳' : '↻'} Refresh

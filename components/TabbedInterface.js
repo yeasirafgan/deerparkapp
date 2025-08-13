@@ -104,7 +104,9 @@ const TabbedInterface = ({ onTimesheetSubmit, username }) => {
                 {tab.icon}
               </span>
               <span className="hidden sm:inline">{tab.label}</span>
-              <span className="sm:hidden text-xs">{tab.label.split(' ')[0]}</span>
+              <span className="sm:hidden text-xs">
+                {tab.id === 'leave' ? 'Leave R' : tab.label.split(' ')[0]}
+              </span>
             </button>
           ))}
         </nav>
