@@ -108,7 +108,7 @@ const TimesheetForm = ({ onSubmit, username }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='space-y-6 w-full p-4 bg-white rounded-lg shadow-lg border border-gray-200'
+      className='space-y-4 sm:space-y-6 w-full'
     >
       <div className='flex flex-col'>
         <label

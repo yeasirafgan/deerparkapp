@@ -285,7 +285,7 @@ const AdminPage = async ({ searchParams }) => {
               </th>
               {/* New Column for Estimated Payment */}
               <th className='border border-gray-300 px-2 py-1 text-center text-xs sm:text-sm font-semibold text-lime-800 hover:text-emerald-950'>
-                £ Estimated Pay
+                Estimated Pay (£)
               </th>
             </tr>
           </thead>
@@ -349,7 +349,7 @@ const AdminPage = async ({ searchParams }) => {
         <div className='overflow-x-auto'>
           <div className='mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg'>
             <p className='text-sm text-blue-800 font-medium'>
-              📊 <strong>All Entries Summary:</strong> This table shows combined totals including work hours, training hours, and leave hours for each user.
+              <strong>All Entries Summary:</strong> This table shows combined totals including work hours, training hours, and leave hours for each user.
             </p>
           </div>
           <table className='min-w-full bg-white border border-gray-200'>
@@ -372,7 +372,7 @@ const AdminPage = async ({ searchParams }) => {
                   Total Hours
                 </th>
                 <th className='border border-gray-300 px-2 py-1 text-center text-xs sm:text-sm font-semibold text-lime-800 hover:text-emerald-950'>
-                  £ Estimated Pay
+                  Estimated Pay (£)
                 </th>
               </tr>
             </thead>

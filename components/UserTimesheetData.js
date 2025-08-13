@@ -550,7 +550,7 @@ const UserTimesheetData = ({ username }) => {
              className='px-3 py-1 text-sm bg-slate-700 text-white rounded hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed'
              title='Refresh pending requests'
            >
-             {isLoading ? '⟳' : '↻'} Refresh
+             {isLoading ? 'Loading...' : 'Refresh'}
            </button>
          </div>
          

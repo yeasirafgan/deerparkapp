@@ -32,11 +32,11 @@ const TimesheetPage = async ({ searchParams }) => {
   };
 
   return (
-    <main className='bg-gray-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8'>
+    <main className='bg-gray-100 min-h-screen py-4 px-2 sm:py-8 sm:px-4 lg:px-8'>
       {/* <VapiAssistantDynamic/> */}
-      <div className='w-full max-w-none px-4 sm:px-6 lg:px-8'>
+      <div className='w-full max-w-none px-2 sm:px-4 lg:px-8'>
         {/* Hero Section with Username */}
-        <div className='flex-1 bg-gradient-to-r from-slate-200 to-slate-100 shadow-md rounded-lg p-6 mb-8 h-[60vh] md:h-auto flex flex-col justify-center items-start'>
+        <div className='flex-1 bg-gradient-to-r from-slate-200 to-slate-100 shadow-md rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 h-[50vh] sm:h-[60vh] md:h-auto flex flex-col justify-center items-start'>
           {/* Welcome and Username */}
           <div className='flex flex-col items-start w-full space-y-1 md:space-y-0 md:flex-col md:items-start'>
             <h1 className='text-start w-full text-lg font-extrabold text-gray-800 md:w-auto md:text-lg hover:text-yellow-600'>
@@ -60,9 +60,9 @@ const TimesheetPage = async ({ searchParams }) => {
           </div>
         </div>
 
-        <div className='flex flex-col md:flex-row gap-6'>
-          <div className='flex-1 bg-white shadow-md rounded-lg p-6'>
-            <h1 className='text-2xl font-semibold text-slate-800 mb-4'>
+        <div className='flex flex-col md:flex-row gap-4 md:gap-6'>
+          <div className='flex-1 bg-white shadow-md rounded-lg p-3 sm:p-6'>
+            <h1 className='text-xl sm:text-2xl font-semibold text-slate-800 mb-3 sm:mb-4'>
               Submit Entry
             </h1>
             <TabbedInterface
@@ -71,8 +71,8 @@ const TimesheetPage = async ({ searchParams }) => {
             />
           </div>
 
-          <div className='flex-1 bg-white shadow-md rounded-lg p-6'>
-            <h1 className='text-2xl font-semibold text-slate-800 mb-4'>
+          <div className='flex-1 bg-white shadow-md rounded-lg p-3 sm:p-6'>
+            <h1 className='text-xl sm:text-2xl font-semibold text-slate-800 mb-3 sm:mb-4'>
               Your Timesheet Data
             </h1>
             <GracePeriodNotice username={username} />
@@ -81,8 +81,8 @@ const TimesheetPage = async ({ searchParams }) => {
           </div>
         </div>
 
-        <div className='mt-8 bg-white shadow-md rounded-lg p-6'>
-          <h1 className='text-2xl font-semibold text-slate-800 mb-4'>
+        <div className='mt-6 sm:mt-8 bg-white shadow-md rounded-lg p-3 sm:p-6'>
+          <h1 className='text-xl sm:text-2xl font-semibold text-slate-800 mb-3 sm:mb-4'>
             Rota List
           </h1>
           <RotaList userRole='basic' />
